@@ -16,7 +16,7 @@ according to Swedish rules, and is covered by automated unit tests using xUnit.
 2. Run
 3. Enter a swedish personal identity number in console
 
-### Docker
+# Docker
 
 
 ### Testing
