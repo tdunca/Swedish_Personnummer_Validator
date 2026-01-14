@@ -48,7 +48,7 @@ namespace PersonnummerKontroll
         }
     }
 
-    internal static class PersonnummerValidator
+    public static class PersonnummerValidator
     {
         public static ValidationResult Validate(string input)
         {
@@ -165,7 +165,7 @@ namespace PersonnummerKontroll
         }
     }
 
-    internal sealed class ValidationResult
+    public sealed class ValidationResult
     {
         public bool IsValid { get; }
         public string Normalized { get; }
