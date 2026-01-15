@@ -1,0 +1,38 @@
+name: .NET CI - Build and Test
+
+# Definierar när arbetsflödet ska köras
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build-and-test:
+        # Använder den senaste Ubuntu-versionen som körs på Githubs servrar
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. Checkar ut koden från Git-repot så att den blir tillgänglig för efterföljande steg
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            # 2. Installerar .NET 9 SDK eftersom projeketet använder .NET 9
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "9.0.x"
+
+            # 3. Laddar ner alla nödvändiga NuGet-paket som projektet beror på
+            - name: Restore dependencies
+              run: dotnet restore
+
+            # 4. Kompilerar (bygger) projektet utan att ladda ner paket igen
+            - name: Build
+              run: dotnet build --no-restore --configuration Release
+
+            # 5. Kör alla enhetstester i projektet (xUnit)
+            - name: Test
+              run: dotnet test --no-build --configuration Release --verbosity normal
